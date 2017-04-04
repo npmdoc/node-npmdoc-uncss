@@ -1,17 +1,40 @@
 {
-    "buildNpmdoc":"uncss",
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "buildNpmdoc": "uncss",
+    "description": "api documentation for [uncss (v0.14.1)](https://github.com/giakki/uncss) [![npm package](https://img.shields.io/npm/v/npmdoc-uncss.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-uncss) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-uncss.svg)](https://travis-ci.org/npmdoc/node-npmdoc-uncss)",
     "devDependencies": {
-        "uncss": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "uncss": "*",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "name":"npmdoc-uncss",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmdoc/node-npmdoc-uncss",
+    "keywords": [
+        "documentation",
+        "uncss"
+    ],
+    "license": "MIT",
+    "main": "lib.npmdoc_uncss.js",
+    "name": "npmdoc-uncss",
+    "nameAlias": "npmdoc_uncss",
+    "nameOriginal": "npmdoc-uncss",
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/npmdoc/node-npmdoc-uncss"
     },
     "scripts": {
-        "build-ci": "utility2 shReadmeTest build_ci.sh"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "(set -e; npm install \"kaizhu256/node-utility2#alpha\"; utility2 shDeployHeroku)",
+        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",
+        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
     "version": "0.0.1"
 }
