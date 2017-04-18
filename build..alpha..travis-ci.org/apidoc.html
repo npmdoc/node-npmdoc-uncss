@@ -63,8 +63,53 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.uncss">
+            function <span class="apidocSignatureSpan"></span>uncss
+            <span class="apidocSignatureSpan">(files, options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.js">
+            function <span class="apidocSignatureSpan">uncss.</span>js
+            <span class="apidocSignatureSpan">(pages, css, ignore)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.uncss.postcssPlugin">
             function <span class="apidocSignatureSpan">uncss.</span>postcssPlugin
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.postcssPlugin.postcss">
+            function <span class="apidocSignatureSpan">uncss.</span>postcssPlugin.postcss
+            <span class="apidocSignatureSpan">(css, result)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.postcssPlugin.process">
+            function <span class="apidocSignatureSpan">uncss.</span>postcssPlugin.process
+            <span class="apidocSignatureSpan">(css, opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.toString">
+            function <span class="apidocSignatureSpan">uncss.</span>toString
             <span class="apidocSignatureSpan">()</span>
             </a>
 
@@ -79,6 +124,19 @@
         <li>
 
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">uncss.</span>utility</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.uncss.js">module uncss.js</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.js.js">
+            function <span class="apidocSignatureSpan">uncss.</span>js
+            <span class="apidocSignatureSpan">(pages, css, ignore)</span>
+            </a>
 
         </li>
 
@@ -182,6 +240,57 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.uncss.postcssPlugin.postcss">module uncss.postcssPlugin.postcss</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.postcssPlugin.postcss.postcss">
+            function <span class="apidocSignatureSpan">uncss.postcssPlugin.</span>postcss
+            <span class="apidocSignatureSpan">(css, result)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">uncss.postcssPlugin.postcss.</span>postcssPlugin</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">uncss.postcssPlugin.postcss.</span>postcssVersion</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.uncss.postcssPlugin.process">module uncss.postcssPlugin.process</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.postcssPlugin.process.process">
+            function <span class="apidocSignatureSpan">uncss.postcssPlugin.</span>process
+            <span class="apidocSignatureSpan">(css, opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.uncss.toString">module uncss.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.uncss.toString.toString">
+            function <span class="apidocSignatureSpan">uncss.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
     <li class="apidocModuleLi"><a href="#apidoc.module.uncss.utility">module uncss.utility</a><ol>
 
         <li>
@@ -238,6 +347,83 @@
 
 
     <h2>
+        <a href="#apidoc.element.uncss.uncss" id="apidoc.element.uncss.uncss">
+        function <span class="apidocSignatureSpan"></span>uncss
+        <span class="apidocSignatureSpan">(files, options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function init(files, options, callback) {
+
+    if (_.isFunction(options)) {
+        /* There were no options, this argument is actually the callback */
+        callback = options;
+        options = {};
+    } else if (!_.isFunction(callback)) {
+        throw new TypeError(&#x27;UnCSS: expected a callback&#x27;);
+    }
+
+    /* Try and read options from the specified uncssrc file */
+    if (options.uncssrc) {
+        try {
+            /* Manually-specified options take precedence over uncssrc options */
+            options = _.merge(utility.parseUncssrc(options.uncssrc), options);
+        } catch (err) {
+            if (err instanceof SyntaxError) {
+                callback(new SyntaxError(&#x27;UnCSS: uncssrc file is invalid JSON.&#x27;));
+                return;
+            }
+            callback(err);
+            return;
+        }
+    }
+
+    /* Assign default values to options, unless specified */
+    options = _.defaults(options, {
+        csspath: &#x27;&#x27;,
+        ignore: [],
+        media: [],
+        timeout: 0,
+        report: false,
+        ignoreSheets: [],
+        html: files,
+        // gulp-uncss parameters:
+        raw: null
+    });
+
+    serializedQueue.push(options, callback);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.uncss.js" id="apidoc.element.uncss.js">
+        function <span class="apidocSignatureSpan">uncss.</span>js
+        <span class="apidocSignatureSpan">(pages, css, ignore)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function uncss(pages, css, ignore) {
+    return promise.map(pages, function (page) {
+        return getUsedSelectors(page, css);
+    }).then(function (usedSelectors) {
+        usedSelectors = _.flatten(usedSelectors);
+        var filteredCss = filterUnusedRules(pages, css, ignore, usedSelectors);
+        return [filteredCss, {
+<span class="apidocCodeCommentSpan">            /* Get the selectors for the report */
+</span>            all: getAllSelectors(css),
+            used: usedSelectors
+        }];
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
         <a href="#apidoc.element.uncss.postcssPlugin" id="apidoc.element.uncss.postcssPlugin">
         function <span class="apidocSignatureSpan">uncss.</span>postcssPlugin
         <span class="apidocSignatureSpan">()</span>
@@ -255,7 +441,95 @@
 
 
 
+    <h2>
+        <a href="#apidoc.element.uncss.postcssPlugin.postcss" id="apidoc.element.uncss.postcssPlugin.postcss">
+        function <span class="apidocSignatureSpan">uncss.</span>postcssPlugin.postcss
+        <span class="apidocSignatureSpan">(css, result)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">postcssPlugin.postcss = function (css, result) { // eslint-disable-line no-unused-vars
+    opts = assign(opts, {
+        // This is used to pass the css object in to processAsPostCSS
+        rawPostCss: css
+    });
 
+    return new promise(function (resolve, reject) {
+        serializedQueue.push(opts, function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.uncss.postcssPlugin.process" id="apidoc.element.uncss.postcssPlugin.process">
+        function <span class="apidocSignatureSpan">uncss.</span>postcssPlugin.process
+        <span class="apidocSignatureSpan">(css, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">postcssPlugin.process = function (css, opts) {
+    return postcss([creator(opts)]).process(css, opts);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.uncss.toString" id="apidoc.element.uncss.toString">
+        function <span class="apidocSignatureSpan">uncss.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.uncss.js" id="apidoc.module.uncss.js">module uncss.js</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.uncss.js.js" id="apidoc.element.uncss.js.js">
+        function <span class="apidocSignatureSpan">uncss.</span>js
+        <span class="apidocSignatureSpan">(pages, css, ignore)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function uncss(pages, css, ignore) {
+    return promise.map(pages, function (page) {
+        return getUsedSelectors(page, css);
+    }).then(function (usedSelectors) {
+        usedSelectors = _.flatten(usedSelectors);
+        var filteredCss = filterUnusedRules(pages, css, ignore, usedSelectors);
+        return [filteredCss, {
+<span class="apidocCodeCommentSpan">            /* Get the selectors for the report */
+</span>            all: getAllSelectors(css),
+            used: usedSelectors
+        }];
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
 
 
 </div>
@@ -533,6 +807,81 @@
     <li>description and source-code<pre class="apidocCodePre">process = function (css, opts) {
     return postcss([creator(opts)]).process(css, opts);
 }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.uncss.postcssPlugin.postcss" id="apidoc.module.uncss.postcssPlugin.postcss">module uncss.postcssPlugin.postcss</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.uncss.postcssPlugin.postcss.postcss" id="apidoc.element.uncss.postcssPlugin.postcss.postcss">
+        function <span class="apidocSignatureSpan">uncss.postcssPlugin.</span>postcss
+        <span class="apidocSignatureSpan">(css, result)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">postcss = function (css, result) { // eslint-disable-line no-unused-vars
+    opts = assign(opts, {
+        // This is used to pass the css object in to processAsPostCSS
+        rawPostCss: css
+    });
+
+    return new promise(function (resolve, reject) {
+        serializedQueue.push(opts, function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.uncss.postcssPlugin.process" id="apidoc.module.uncss.postcssPlugin.process">module uncss.postcssPlugin.process</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.uncss.postcssPlugin.process.process" id="apidoc.element.uncss.postcssPlugin.process.process">
+        function <span class="apidocSignatureSpan">uncss.postcssPlugin.</span>process
+        <span class="apidocSignatureSpan">(css, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">process = function (css, opts) {
+    return postcss([creator(opts)]).process(css, opts);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.uncss.toString" id="apidoc.module.uncss.toString">module uncss.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.uncss.toString.toString" id="apidoc.element.uncss.toString.toString">
+        function <span class="apidocSignatureSpan">uncss.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
