@@ -1,6 +1,6 @@
 # npmdoc-uncss
 
-#### api documentation for  [uncss (v0.14.1)](https://github.com/giakki/uncss)  [![npm package](https://img.shields.io/npm/v/npmdoc-uncss.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-uncss) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-uncss.svg)](https://travis-ci.org/npmdoc/node-npmdoc-uncss)
+#### basic api documentation for  [uncss (v0.14.1)](https://github.com/giakki/uncss)  [![npm package](https://img.shields.io/npm/v/npmdoc-uncss.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-uncss) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-uncss.svg)](https://travis-ci.org/npmdoc/node-npmdoc-uncss)
 
 #### Remove unused CSS styles
 
